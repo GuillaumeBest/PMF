@@ -104,6 +104,7 @@ public class ArduinoJava implements SerialPortEventListener {
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 
+/*
 	public static void main(String[] args) throws Exception {
 		ArduinoJava main = new ArduinoJava();
 		main.initialize();
@@ -119,7 +120,9 @@ public class ArduinoJava implements SerialPortEventListener {
 				}
 			}
 		};
+
 		t.start();
 		System.out.println("Started");
 	}
+*/
 }
