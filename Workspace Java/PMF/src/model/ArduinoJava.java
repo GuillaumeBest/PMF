@@ -19,6 +19,7 @@ public class ArduinoJava implements SerialPortEventListener {
 	
 	private String temp;
 	private String hum;
+	private String pR;
 
 //----------------------------------------------------------------------------------------------
 	private static final String PORT_NAMES[] = { "/dev/tty.usbserial-A9007UX1", // Mac OS X
@@ -115,10 +116,10 @@ public class ArduinoJava implements SerialPortEventListener {
 
 	private void separateur(String Line) {
 		String tab[]= Line.split(";");
-		System.out.println(tab[0]);
-		System.out.println(tab[1]);
 		setTemp(tab[0]);
 		setHum(tab[1]);
+		setpR(tab[2]);
+		System.out.println(getpR());
 		this.notifyAllObservers();
 	}
 	
@@ -157,5 +158,12 @@ public class ArduinoJava implements SerialPortEventListener {
 	}
 	public void setHum(String hum) {
 		this.hum = hum;
+	}
+	
+	public String getpR() {
+		return pR;
+	}
+	public void setpR(String pR) {
+		this.pR = pR;
 	}
 }

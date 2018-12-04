@@ -41,7 +41,7 @@ public class Panneau extends JPanel {
 	temperature.setText("?°C");
 	
 	textH.setText("Taux d'humidité:");
-	temperature.setText("?%");
+	humidite.setText("?%");
 	
 	textC.setText("Température de Consigne: ");
 	consigne.setText("18.2");

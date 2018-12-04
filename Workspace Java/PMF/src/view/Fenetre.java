@@ -12,7 +12,7 @@ public class Fenetre extends JFrame {
 	public Fenetre () {  
 		pan =  new Panneau();
 		this.setTitle("Console Mini Frigo USB");
-		this.setSize(300, 200);
+		this.setSize(350, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(pan);
 		this.setVisible(true);
