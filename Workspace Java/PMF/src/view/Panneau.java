@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,29 +10,55 @@ import javax.swing.JTextField;
 
 public class Panneau extends JPanel {
 	private JLabel temperature;
+	private JLabel textT;
 	private JLabel humidite;
+	private JLabel textH;
+	private JLabel textC;
+	private JTextField consigne;
+	
 	private String temp;
 	private String hum;
 	
 	
 	public Panneau () {
-	temperature = new JLabel();
-	humidite = new JLabel();
-
-// Default Texte
-	temperature.setText("Température de la cannette: "+0+"°C");
-	humidite.setText("Taux d'humidité: "+0+"%");
+		
+	JPanel display= new JPanel ();
+	this.setLayout(new BorderLayout());
 	
-	this.add(temperature);
-	this.add(humidite);
+	
+// Display NORTH
+	display.setLayout(new GridLayout(3,2));
+	temperature = new JLabel();
+	textT = new JLabel();
+	
+	humidite = new JLabel();
+	textH = new JLabel();
+	
+	consigne=  new JTextField();
+	textC = new JLabel();
+
+	textT.setText("Température de la cannette:");
+	temperature.setText("?°C");
+	
+	textH.setText("Taux d'humidité:");
+	temperature.setText("?%");
+	
+	textC.setText("Température de Consigne: ");
+	consigne.setText("18.2");
+	
+	display.add(textT);
+	display.add(temperature);
+	display.add(textH);
+	display.add(humidite);
+	display.add(textC);
+	display.add(consigne);
+	this.add(display,BorderLayout.NORTH);
 	}
 
 //------------------------------------------------------------------------
-	public void set(String temp, String hum) {
-		setTemp(temp);
-		setHum(hum);
-		temperature.setText("Température de la cannette: "+getTemp()+"°C");
-		humidite.setText("Taux d'humidité: "+getHum()+"%");
+	public void set() {
+		temperature.setText(getTemp()+"°C");
+		humidite.setText(getHum()+"%");
 	}
 
 //------------------------------------------------------------------------

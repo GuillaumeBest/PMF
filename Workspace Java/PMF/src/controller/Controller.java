@@ -15,8 +15,9 @@ public class Controller extends Observer{
 
 	@Override
 	public void update() {
-		System.out.println("Salut l'update fonctionne");
-		fen.getPan().set(ardui.getTemp(),ardui.getHum());
+		fen.getPan().setTemp(ardui.getTemp());
+		fen.getPan().setHum(ardui.getHum());
+		fen.getPan().set();
 		
 	}
 
