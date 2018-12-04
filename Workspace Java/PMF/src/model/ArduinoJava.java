@@ -3,25 +3,29 @@ package model;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
+import contract.Observer;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
 public class ArduinoJava implements SerialPortEventListener {
-
-	SerialPort serialPort;
-
 	/** The port we're normally going to use. */
+	SerialPort serialPort;
+	
+	private String temp;
+	private String hum;
 
+//----------------------------------------------------------------------------------------------
 	private static final String PORT_NAMES[] = { "/dev/tty.usbserial-A9007UX1", // Mac OS X
 			"/dev/ttyACM0", // Raspberry Pi
 			"/dev/ttyUSB0", // Linux
 			"COM7", // Windows
-
-	};
+			};
 
 	/**
 	 * A BufferedReader which will be fed by a InputStreamReader converting the
@@ -37,8 +41,11 @@ public class ArduinoJava implements SerialPortEventListener {
 	
 	/** Default bits per second for COM port. */
 	private static final int DATA_RATE = 9600;
-	
+//----------------------------------------------------------------------------------------------	
 
+	public ArduinoJava() {
+		
+	}
 	public void initialize() {
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
@@ -77,6 +84,7 @@ public class ArduinoJava implements SerialPortEventListener {
 		}
 	}
 
+
 	/**
 	 * This should be called when you stop using the port. This will prevent port
 	 * locking on platforms like Linux.
@@ -97,32 +105,57 @@ public class ArduinoJava implements SerialPortEventListener {
 			try {
 				String inputLine = input.readLine();
 				System.out.println(inputLine);
+				separateur(inputLine);
 			} catch (Exception e) {
 				System.err.println(e.toString());
 			}
 		}
-		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 
-/*
-	public static void main(String[] args) throws Exception {
-		ArduinoJava main = new ArduinoJava();
-		main.initialize();
-		Thread t = new Thread() {
-			@Override
-			public void run() {
-				// the following line will keep this app alive for 1000 seconds,
-				// waiting for events to occur and responding to them (printing incoming
-				// messages to console).
-				try {
-					Thread.sleep(1000000);
-				} catch (InterruptedException ie) {
-				}
-			}
-		};
 
-		t.start();
-		System.out.println("Started");
+	private void separateur(String Line) {
+		String tab[]= Line.split(";");
+		System.out.println(tab[0]);
+		System.out.println(tab[1]);
+		setTemp(tab[0]);
+		setHum(tab[1]);
+		this.notifyAllObservers();
 	}
-*/
+	
+	private List<Observer> observers = new ArrayList<Observer>();
+	   private int state;
+
+	   public int getState() {
+	      return state;
+	   }
+
+	   public void setState(int state) {
+	      this.state = state;
+	      notifyAllObservers();
+	   }
+
+	   public void attach(Observer observer){
+	      observers.add(observer);		
+	   }
+
+	   public void notifyAllObservers(){
+	      for (Observer observer : observers) {
+	         observer.update();
+	      }
+	   } 	
+
+
+	public String getTemp() {
+		return temp;
+	}
+	public void setTemp(String temp) {
+		this.temp = temp;
+	}
+	
+	public String getHum() {
+		return hum;
+	}
+	public void setHum(String hum) {
+		this.hum = hum;
+	}
 }

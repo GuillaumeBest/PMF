@@ -1,10 +1,15 @@
 package model;
 
 public class Model {
-	ArduinoJava Arduino;
+	ArduinoJava arduino;
 	
 	public Model() {
-		Arduino= new ArduinoJava();
+		arduino= new ArduinoJava();
+		arduino.initialize();
+	}
+	
+	public ArduinoJava getArdui() {
+		return arduino;
 		
 	}
 

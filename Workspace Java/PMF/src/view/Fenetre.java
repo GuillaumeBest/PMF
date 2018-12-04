@@ -10,13 +10,23 @@ import javax.swing.JProgressBar;
 
 public class Fenetre extends JFrame {
 	
-	private Panneau pan=  new Panneau(); 
-	
+	private Panneau pan; 
+
 	public Fenetre () {  
+		pan =  new Panneau();
 		this.setTitle("test");
 		this.setSize(300, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setContentPane(pan);
 		this.setVisible(true);
 	  }
+	
+	public Panneau getPan() {
+		return pan;
+	}
+
+	public void setPan(Panneau pan) {
+		this.pan = pan;
+	}
+	
 }

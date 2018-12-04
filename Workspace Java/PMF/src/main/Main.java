@@ -10,8 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		Fenetre fen = new Fenetre();
 		Model mod= new Model();
-		Controller Control = new Controller(fen,mod); 
-		Control.start();
+		Controller Control = new Controller(fen,mod,mod.getArdui()); 
 		
 
 	}
